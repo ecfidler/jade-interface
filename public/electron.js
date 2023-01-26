@@ -23,8 +23,8 @@ if (require("electron-squirrel-startup")) {
 // Create the native browser window.
 function createWindow() {
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 825,
         // Set the path of an additional "preload" script that can be used to
         // communicate between node-land and browser-land.
         webPreferences: {
