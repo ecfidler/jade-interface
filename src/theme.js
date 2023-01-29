@@ -8,8 +8,8 @@ https://mui.com/material-ui/customization/palette/
 const theme = createTheme({
     palette: {
         primary: {
-            dark: "#231F20",
-            main: "#FDEDB0",
+            main: "#231F20",
+            dark: "#FDEDB0",
             light: "#CFBFB5",
         },
         secondary: {
@@ -27,6 +27,9 @@ const theme = createTheme({
     typography: {
         allVariants: {
             color: "#231F20",
+        },
+        button: {
+            textTransform: "none",
         },
     },
 });
