@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import {
     Typography,
     Box,
@@ -11,36 +13,58 @@ import {
 
 import { Wifi } from "@mui/icons-material";
 
+import * as api from "../api/api";
+
+import ConnectionContext from "../api/connectionContext";
+
 export default function ConnectionPage() {
+    const navigate = useNavigate();
+
+    const connection = React.useContext(ConnectionContext);
+
     const [connectionInProgress, setConnectionInProgress] =
         React.useState(true);
 
-    const [connectionStatus, setConnectionStatus] =
-        React.useState("Autoconnecting...");
+    const [connectionStatus, setConnectionStatus] = React.useState(
+        "Attempting to Autoconnect..."
+    );
 
-    // Get the previous values
-    const _connections = localStorage.getItem("previousConnections");
+    const _previousConnections = localStorage.getItem("previousConnections");
 
-    const connections = _connections
-        ? JSON.parse(localStorage.getItem("previousConnections"))
-        : ["localhost"]; // 192.168.1.138:5000
-
-    // attempt old connections
-    // old connections fail
-    React.useEffect(() => {
-        setConnectionInProgress(false);
-        setConnectionStatus("Attempting to Connect...");
-    }, []);
+    const previousConnections = React.useMemo(() => {
+        return _previousConnections
+            ? JSON.parse(localStorage.getItem("previousConnections"))
+            : ["localhost"]; // 192.168.1.134:5000
+    }, [_previousConnections]);
 
     const [connectionInput, setConnectionInput] = React.useState("");
 
     const [connectionValidationError, setConnectionValidationError] =
         React.useState("");
 
-    function handleConnectionInputChange(event) {
-        setConnectionInput(event.target.value ?? "");
-        console.log("fire");
-    }
+    React.useEffect(() => {
+        // Automatically attempt to connect on open
+        async function autoConnect() {
+            const response = await api.attemptMultipleConnections(
+                previousConnections
+            );
+            return response;
+        }
+        autoConnect()
+            .then((c) => {
+                if (c) {
+                    connection.updateUrl(c);
+                    setConnectionStatus("Connection Succeeded!");
+
+                    navigate(`/main/${c}`);
+                } else {
+                    setConnectionInProgress(false);
+                }
+            })
+            .catch((e) => {
+                setConnectionInProgress(false);
+            });
+    }, [previousConnections, connection]);
 
     function connectButtonClick(event) {
         // Add more validation here
@@ -49,22 +73,34 @@ export default function ConnectionPage() {
             return;
         }
 
+        setConnectionStatus("Attempting to Connect...");
         setConnectionInProgress(true);
 
-        // TODO: Attempt connect
-        // if fail: setConnectionInProgress(false)
-        // prompt fail text
+        api.attemptConnection(connectionInput)
+            .then((c) => {
+                if (c) {
+                    connection.updateUrl(c);
+                    setConnectionStatus("Connection Succeeded!");
 
-        if (!connections.includes(connectionInput)) {
-            connections.push(connectionInput);
-            localStorage.setItem(
-                "previousConnections",
-                JSON.stringify(connections)
-            );
-        }
+                    if (!previousConnections.includes(connectionInput)) {
+                        previousConnections.push(connectionInput);
+                        localStorage.setItem(
+                            "previousConnections",
+                            JSON.stringify(previousConnections)
+                        );
+                    }
 
-        // if success: update the localstorage
-        // nagivate to main page with the server hostname
+                    navigate(`/main/${c}`);
+                    return;
+                } else {
+                    setConnectionInProgress(false);
+                    setConnectionValidationError("Invalid Address");
+                }
+            })
+            .catch((e) => {
+                setConnectionInProgress(false);
+                setConnectionValidationError("Invalid Address");
+            });
     }
 
     return (
@@ -101,7 +137,7 @@ export default function ConnectionPage() {
                         <Autocomplete
                             freeSolo
                             sx={{ width: "14em" }}
-                            options={connections}
+                            options={previousConnections}
                             onInputChange={(event, inputValue) =>
                                 setConnectionInput(inputValue)
                             }
@@ -113,7 +149,6 @@ export default function ConnectionPage() {
                                     variant="filled"
                                     size="small"
                                     helperText={connectionValidationError}
-                                    // value={connectionInput}
                                 />
                             )}
                         />

@@ -6,7 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #00A86B;
+  background-color: transparent;
+  /* background-color: hsl(158, 100%, 33%); */
+  color: #231F20;
+  /* -webkit-app-region: drag; */
+
 
   /* background: hsl(158, 100%, 33%); */
   /* background: hsl(48, 100%, 66%); */

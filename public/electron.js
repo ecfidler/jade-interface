@@ -1,7 +1,7 @@
 // Originally Retrived on 1/24/23 from https://mmazzarolo.com/blog/2021-08-12-building-an-electron-application-using-create-react-app/
 
 // Module to control the application lifecycle and the native browser window.
-const { app, BrowserWindow, protocol } = require("electron");
+const { app, BrowserWindow, protocol, ipcMain } = require("electron");
 const path = require("path");
 const url = require("url");
 
@@ -24,7 +24,9 @@ if (require("electron-squirrel-startup")) {
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1200,
-        height: 825,
+        height: 830,
+        frame: false,
+        transparent: true,
         // Set the path of an additional "preload" script that can be used to
         // communicate between node-land and browser-land.
         webPreferences: {
@@ -103,6 +105,14 @@ app.on("web-contents-created", (event, contents) => {
             event.preventDefault();
         }
     });
+});
+
+ipcMain.on("app/close", () => {
+    app.quit();
+});
+
+ipcMain.on("app/minimize", () => {
+    BrowserWindow.getFocusedWindow().minimize();
 });
 
 // In this file you can include the rest of your app's specific main process

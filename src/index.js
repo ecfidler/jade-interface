@@ -4,15 +4,16 @@ import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 import Layout from "./Layout/Layout";
 import ConnectionPage from "./Connection/ConnectionPage";
+import MainPage from "./Main/MainPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: "/",
         element: <Layout />,
@@ -21,21 +22,21 @@ const router = createBrowserRouter([
                 path: "/",
                 element: <ConnectionPage />,
             },
-            // {
-            //     path: "/",
-            //     element: <App />,
-            // },
+            {
+                path: "/main/:connectionURL",
+                element: <MainPage />,
+            },
         ],
     },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
-        </ThemeProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+    </ThemeProvider>
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

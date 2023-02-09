@@ -32,6 +32,15 @@ const theme = createTheme({
             textTransform: "none",
         },
     },
+    components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    background: "rgba(255, 255, 255, 0.85)",
+                },
+            },
+        },
+    },
 });
 // #CCA43B
 

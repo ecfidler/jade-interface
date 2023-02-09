@@ -1,8 +1,15 @@
 import { Outlet } from "react-router-dom";
 
+import * as React from "react";
+
 import Box from "@mui/material/Box";
+import Navbar from "../Navbar/Navbar";
+
+import ConnectionContext from "../api/connectionContext";
 
 export default function Layout() {
+    const [apiURL, setApiURL] = React.useState("");
+
     return (
         <>
             <Box
@@ -12,9 +19,15 @@ export default function Layout() {
                     overflow: "hidden",
                     background:
                         "linear-gradient(120deg, rgb(0, 168, 107) 50%, rgb(253, 237, 176) 100%)",
+                    borderRadius: "5px",
                 }}
             >
-                <Outlet />
+                <ConnectionContext.Provider
+                    value={{ url: apiURL, updateUrl: setApiURL }}
+                >
+                    <Navbar />
+                    <Outlet />
+                </ConnectionContext.Provider>
             </Box>
         </>
     );
