@@ -7,6 +7,7 @@ import { Box, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import ConnectionContext from "../api/connectionContext";
+import FileManagerSection from "./FileManager/FileManagerSection";
 
 export default function MainPage() {
     const { connectionURL } = useParams();
@@ -31,7 +32,7 @@ export default function MainPage() {
                         {connectionURL}
                     </Paper>
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
-                        paper2
+                        <FileManagerSection />
                     </Paper>
                 </Box>
                 <Box

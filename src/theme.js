@@ -8,25 +8,27 @@ https://mui.com/material-ui/customization/palette/
 const theme = createTheme({
     palette: {
         primary: {
-            main: "#231F20",
-            dark: "#FDEDB0",
-            light: "#CFBFB5",
+            main: "#231F20", // raisin
+            dark: "#FDEDB0", // parchment
+            light: "#CFBFB5", // pale
         },
         secondary: {
+            // greens
             dark: "#008F5A",
             main: "#00A86B",
             light: "#68B490",
         },
         warning: {
-            main: "#E2973C",
+            main: "#E2973C", // orange
         },
         error: {
-            main: "#C62F39",
+            main: "#C62F39", // red
         },
     },
     typography: {
         allVariants: {
             color: "#231F20",
+            marginBottom: "unset",
         },
         button: {
             textTransform: "none",
@@ -37,6 +39,13 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     background: "rgba(255, 255, 255, 0.85)",
+                },
+            },
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: "100px",
                 },
             },
         },

@@ -64,7 +64,7 @@ export default function ConnectionPage() {
             .catch((e) => {
                 setConnectionInProgress(false);
             });
-    }, [previousConnections, connection]);
+    }, [previousConnections, connection, navigate]);
 
     function connectButtonClick(event) {
         // Add more validation here
