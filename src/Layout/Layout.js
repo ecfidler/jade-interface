@@ -6,9 +6,28 @@ import Box from "@mui/material/Box";
 import Navbar from "../Navbar/Navbar";
 
 import ConnectionContext from "../api/connectionContext";
+import LogContext from "../api/logContext";
 
 export default function Layout() {
     const [apiURL, setApiURL] = React.useState("");
+
+    const [logList, setLogList] = React.useState([]);
+
+    const initialLog = [
+        {
+            message: "logged!",
+            urgency: "error",
+            timestamp: Date.now(),
+        },
+    ]; // save or get this from localstorage!
+
+    const add = (item) => {
+        setLogList(logList.concat(item));
+    };
+
+    const clear = () => {
+        setLogList([]);
+    };
 
     return (
         <>
@@ -22,12 +41,16 @@ export default function Layout() {
                     borderRadius: "5px",
                 }}
             >
-                <ConnectionContext.Provider
-                    value={{ url: apiURL, updateUrl: setApiURL }}
+                <LogContext.Provider
+                    value={{ log: initialLog, add: add, clear: clear }}
                 >
-                    <Navbar />
-                    <Outlet />
-                </ConnectionContext.Provider>
+                    <ConnectionContext.Provider
+                        value={{ url: apiURL, updateUrl: setApiURL }}
+                    >
+                        <Navbar />
+                        <Outlet />
+                    </ConnectionContext.Provider>
+                </LogContext.Provider>
             </Box>
         </>
     );

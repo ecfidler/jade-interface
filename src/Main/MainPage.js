@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 import ConnectionContext from "../api/connectionContext";
 import FileManagerSection from "./FileManager/FileManagerSection";
+import LoggingSection from "./Logging/LoggingSection";
 
 export default function MainPage() {
     const { connectionURL } = useParams();
@@ -29,7 +30,7 @@ export default function MainPage() {
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "30%" }}>
-                        {connectionURL}
+                        Printer Status and Control
                     </Paper>
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
                         <FileManagerSection />
@@ -44,10 +45,10 @@ export default function MainPage() {
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "65%" }}>
-                        paper3
+                        Video Feed
                     </Paper>
                     <Paper elevation={4} sx={{ flexBasis: "40%" }}>
-                        paper4
+                        <LoggingSection />
                     </Paper>
                 </Box>
             </Box>

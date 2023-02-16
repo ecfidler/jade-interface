@@ -1,13 +1,27 @@
 import * as React from "react";
 
-import { Box, Typography, IconButton, Divider } from "@mui/material";
+import {
+    Box,
+    Typography,
+    Divider,
+    IconButton,
+    List,
+    Skeleton,
+} from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
+
+import FilesListItem from "./FilesListItem";
 
 // import ConnectionContext from "../../api/connectionContext";
 
 export default function FileManagerSection() {
     // const connection = React.useContext(ConnectionContext);
+    const [files, setFiles] = React.useState([
+        { name: "fileone.stl" },
+        { name: "filetwo.stl" },
+        { name: "filethree.stl" },
+    ]);
 
     return (
         <Box
@@ -36,6 +50,15 @@ export default function FileManagerSection() {
                 </IconButton>
             </Box>
             <Divider />
+            <List>
+                {files ? (
+                    files.map((file, i) => {
+                        return <FilesListItem key={i} file={file} />;
+                    })
+                ) : (
+                    <Skeleton variant="rectangular"></Skeleton>
+                )}
+            </List>
         </Box>
     );
 }
