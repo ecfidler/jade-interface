@@ -12,11 +12,13 @@ import reportWebVitals from "./reportWebVitals";
 import Layout from "./Layout/Layout";
 import ConnectionPage from "./Connection/ConnectionPage";
 import MainPage from "./Main/MainPage";
+import ErrorElement from "./Error/ErrorElement";
 
 const router = createHashRouter([
     {
         path: "/",
         element: <Layout />,
+        errorElement: <ErrorElement />,
         children: [
             {
                 path: "/",

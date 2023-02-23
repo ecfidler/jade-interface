@@ -9,11 +9,16 @@ import { useParams } from "react-router-dom";
 import ConnectionContext from "../api/connectionContext";
 import FileManagerSection from "./FileManager/FileManagerSection";
 import LoggingSection from "./Logging/LoggingSection";
+import ViewerSection from "./Viewer/ViewerSection";
+import FileManagerLoader from "./FileManager/FileManagerLoader";
 
 export default function MainPage() {
     const { connectionURL } = useParams();
     const connection = React.useContext(ConnectionContext);
-    connection.updateUrl(connectionURL);
+
+    React.useEffect(() => {
+        connection.updateUrl(connectionURL);
+    });
 
     return (
         <>
@@ -33,7 +38,7 @@ export default function MainPage() {
                         Printer Status and Control
                     </Paper>
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
-                        <FileManagerSection />
+                        <FileManagerLoader />
                     </Paper>
                 </Box>
                 <Box
@@ -45,9 +50,17 @@ export default function MainPage() {
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "65%" }}>
-                        Video Feed
+                        <ViewerSection />
                     </Paper>
-                    <Paper elevation={4} sx={{ flexBasis: "40%" }}>
+
+                    <Paper
+                        elevation={4}
+                        sx={{
+                            flexBasis: "40%",
+                            maxHeight: "40%",
+                            backgroundColor: "rgba(225, 225, 225, 0.9)",
+                        }}
+                    >
                         <LoggingSection />
                     </Paper>
                 </Box>

@@ -10,18 +10,14 @@ import {
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
+import PublishIcon from "@mui/icons-material/Publish";
 
 import FilesListItem from "./FilesListItem";
 
 // import ConnectionContext from "../../api/connectionContext";
 
-export default function FileManagerSection() {
+export default function FileManagerSection({ files }) {
     // const connection = React.useContext(ConnectionContext);
-    const [files, setFiles] = React.useState([
-        { name: "fileone.stl" },
-        { name: "filetwo.stl" },
-        { name: "filethree.stl" },
-    ]);
 
     return (
         <Box
@@ -46,7 +42,7 @@ export default function FileManagerSection() {
                     Files
                 </Typography>
                 <IconButton>
-                    <AddIcon />
+                    <PublishIcon />
                 </IconButton>
             </Box>
             <Divider />

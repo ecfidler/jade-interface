@@ -17,3 +17,11 @@ body {
 
 
 }
+
+.scrollToBottomArea {
+  height: "100%";
+  display: "flex";
+  flex-direction: "column";
+  justify-items: "end";
+  padding-left: "1%";
+}

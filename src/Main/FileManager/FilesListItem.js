@@ -14,8 +14,11 @@ import {
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import PublishIcon from "@mui/icons-material/Publish";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+// import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+// import LaunchIcon from "@mui/icons-material/Launch";
+import FileOpenIcon from "@mui/icons-material/FileOpen";
 
 export default function FilesListItem({ file }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -38,7 +41,7 @@ export default function FilesListItem({ file }) {
             <ListItemText>{file.name}</ListItemText>
             <ListItemSecondaryAction>
                 <IconButton>
-                    <PublishIcon />
+                    <FileOpenIcon />
                 </IconButton>
 
                 <IconButton onClick={handleOpenMenuClick}>
