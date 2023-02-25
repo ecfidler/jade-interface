@@ -1,13 +1,26 @@
 import * as React from "react";
 
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+
+import ModelView from "./ModelView";
 
 export default function ModelTab() {
-    const [model, setModel] = React.useState(false);
-    // const [isConnecting, setIsConnecting] = React.useState(false);
+    const [model, setModel] = React.useState("3DBenchy.stl");
 
     return model ? (
-        <Box>Model</Box>
+        <Box
+            sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <React.Suspense fallback={<CircularProgress />}>
+                <ModelView modelName={model} />
+            </React.Suspense>
+        </Box>
     ) : (
         <Box
             sx={{

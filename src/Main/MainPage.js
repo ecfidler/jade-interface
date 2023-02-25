@@ -49,15 +49,15 @@ export default function MainPage() {
                         gap: "15px",
                     }}
                 >
-                    <Paper elevation={4} sx={{ flexBasis: "65%" }}>
+                    <Paper elevation={4} sx={{ flexBasis: "70%" }}>
                         <ViewerSection />
                     </Paper>
 
                     <Paper
                         elevation={4}
                         sx={{
-                            flexBasis: "40%",
-                            maxHeight: "40%",
+                            flexBasis: "30%",
+                            maxHeight: "30%",
                             backgroundColor: "rgba(225, 225, 225, 0.9)",
                         }}
                     >

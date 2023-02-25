@@ -6,6 +6,7 @@ export default function FileManagerLoader() {
         { name: "fileone.stl" },
         { name: "filetwo.stl" },
         { name: "filethree.stl" },
+        { name: "3dBenchy.stl" },
     ]);
 
     return <FileManagerSection files={files} />;
