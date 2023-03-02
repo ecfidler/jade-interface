@@ -4,7 +4,11 @@ import { Box, Typography } from "@mui/material";
 
 import PrinterStatusLoader from "./PrinterStatusLoader";
 
+import LogContext from "../../api/logContext";
+
 export default function ControlSection({ activeFile }) {
+    const logger = React.useContext(LogContext);
+
     const initialFileData = {
         name: "",
     };
@@ -14,12 +18,16 @@ export default function ControlSection({ activeFile }) {
     //     temperature: "",
     // };
 
-    // const [file, setFile] = React.useState([activeFile]);
     const [fileData, setFileData] = React.useState(initialFileData);
     // const [printerData, setPrinterData] = React.useState(initialPrinterData);
 
     React.useEffect(() => {
         // Test if the current file can be changed / make the current file changes
+        logger.add({
+            message: `Updating Active File: ${activeFile}`,
+            urgency: undefined,
+            timestamp: Date.now(),
+        });
 
         setFileData((fileData) => ({ ...fileData, name: activeFile }));
         console.log(fileData);

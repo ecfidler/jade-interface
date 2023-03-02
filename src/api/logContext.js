@@ -7,3 +7,12 @@ const LogContext = React.createContext({
 });
 
 export default LogContext;
+
+/* USAGE
+{
+    message: "Message to be Logged",
+    urgency: undefined (default) | "warning" | "error",
+    timestamp: Date.now(),
+}
+
+*/
