@@ -1,7 +1,7 @@
 import React from "react";
 import FileManagerSection from "./FileManagerSection";
 
-export default function FileManagerLoader() {
+export default function FileManagerLoader({ updateActiveFileName }) {
     const [files, setFiles] = React.useState([
         { name: "fileone.stl" },
         { name: "filetwo.stl" },
@@ -9,5 +9,11 @@ export default function FileManagerLoader() {
         { name: "3dBenchy.stl" },
     ]);
 
-    return <FileManagerSection files={files} />;
+    const updateActiveFile = (fileName) => {
+        updateActiveFileName(fileName);
+    };
+
+    return (
+        <FileManagerSection files={files} updateActiveFile={updateActiveFile} />
+    );
 }

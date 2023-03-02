@@ -20,7 +20,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // import LaunchIcon from "@mui/icons-material/Launch";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 
-export default function FilesListItem({ file }) {
+export default function FilesListItem({ file, loadFile }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -29,6 +29,10 @@ export default function FilesListItem({ file }) {
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLoadFileButton = () => {
+        loadFile(file.name);
     };
 
     return (
@@ -40,7 +44,7 @@ export default function FilesListItem({ file }) {
             </ListItemAvatar>
             <ListItemText>{file.name}</ListItemText>
             <ListItemSecondaryAction>
-                <IconButton>
+                <IconButton onClick={handleLoadFileButton}>
                     <FileOpenIcon />
                 </IconButton>
 

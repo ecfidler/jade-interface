@@ -9,14 +9,13 @@ import {
     Skeleton,
 } from "@mui/material";
 
-import AddIcon from "@mui/icons-material/Add";
 import PublishIcon from "@mui/icons-material/Publish";
 
 import FilesListItem from "./FilesListItem";
 
 // import ConnectionContext from "../../api/connectionContext";
 
-export default function FileManagerSection({ files }) {
+export default function FileManagerSection({ files, updateActiveFile }) {
     // const connection = React.useContext(ConnectionContext);
 
     return (
@@ -49,7 +48,13 @@ export default function FileManagerSection({ files }) {
             <List>
                 {files ? (
                     files.map((file, i) => {
-                        return <FilesListItem key={i} file={file} />;
+                        return (
+                            <FilesListItem
+                                key={i}
+                                file={file}
+                                loadFile={updateActiveFile}
+                            />
+                        );
                     })
                 ) : (
                     <Skeleton variant="rectangular"></Skeleton>
