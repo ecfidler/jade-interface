@@ -13,13 +13,7 @@ export default function ControlSection({ activeFile }) {
         name: "",
     };
 
-    // const initialPrinterData = {
-    //     status: "",
-    //     temperature: "",
-    // };
-
     const [fileData, setFileData] = React.useState(initialFileData);
-    // const [printerData, setPrinterData] = React.useState(initialPrinterData);
 
     React.useEffect(() => {
         // Test if the current file can be changed / make the current file changes
@@ -46,12 +40,13 @@ export default function ControlSection({ activeFile }) {
                     justifyContent: "space-evenly",
                     alignItems: "flex-start",
                     margin: "5px 5% 5px 5%",
+                    height: "90%",
                 }}
             >
                 <Typography sx={{ fontWeight: "500", fontSize: "1.25rem" }}>
                     {fileData?.name ? `File: ${fileData.name}` : "Load a file"}
                 </Typography>
-                <PrinterStatusLoader />
+                <PrinterStatusLoader sx={{ height: "75%" }} />
             </Box>
         </>
     );

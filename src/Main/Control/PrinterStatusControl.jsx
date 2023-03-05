@@ -6,11 +6,21 @@ import { PlayArrow } from "@mui/icons-material";
 import { Pause } from "@mui/icons-material";
 import { Stop } from "@mui/icons-material";
 
-export default function PrinterStatusControl({}) {
+export default function PrinterStatusControl({ status, temperature }) {
     return (
-        <Box>
-            <Typography>Printer Status: </Typography>
-            <Typography>Temperature: </Typography>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                    height: "100%",
+                }}
+            >
+                <Typography>Printer Status: {status} </Typography>
+                <Typography>Temperature: {temperature} </Typography>
+            </Box>
             <ButtonGroup variant="contained">
                 <IconButton>
                     {" "}
@@ -25,6 +35,6 @@ export default function PrinterStatusControl({}) {
                     <Stop />{" "}
                 </IconButton>
             </ButtonGroup>
-        </Box>
+        </>
     );
 }
