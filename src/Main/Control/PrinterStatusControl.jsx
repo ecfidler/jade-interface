@@ -5,6 +5,7 @@ import { Box, Typography, IconButton, ButtonGroup } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 import { Pause } from "@mui/icons-material";
 import { Stop } from "@mui/icons-material";
+import PrinterStatusTemperatureDisplay from "./PrinterStatusTemperatureDisplay";
 
 export default function PrinterStatusControl({ status, temperature }) {
     return (
@@ -19,7 +20,7 @@ export default function PrinterStatusControl({ status, temperature }) {
                 }}
             >
                 <Typography>Printer Status: {status} </Typography>
-                <Typography>Temperature: {temperature} </Typography>
+                <PrinterStatusTemperatureDisplay temperature={temperature} />
             </Box>
             <ButtonGroup variant="contained">
                 <IconButton>
