@@ -5,7 +5,8 @@ import PrinterStatusControl from "./PrinterStatusControl";
 export default function PrinterStatusLoader({}) {
     const initialPrinterData = {
         status: "",
-        temperature: "",
+        bedTemperature: "",
+        hotEndTemperature: "",
     };
 
     const [printerData, setPrinterData] = React.useState(initialPrinterData);
@@ -13,7 +14,8 @@ export default function PrinterStatusLoader({}) {
     return (
         <PrinterStatusControl
             status={printerData.status}
-            temperature={printerData.temperature}
+            bedTemperature={printerData.bedTemperature}
+            hotEndTemperature={printerData.hotEndTemperature}
         />
     );
 }

@@ -7,7 +7,11 @@ import { Pause } from "@mui/icons-material";
 import { Stop } from "@mui/icons-material";
 import PrinterStatusTemperatureDisplay from "./PrinterStatusTemperatureDisplay";
 
-export default function PrinterStatusControl({ status, temperature }) {
+export default function PrinterStatusControl({
+    status,
+    bedTemperature,
+    hotEndTemperature,
+}) {
     return (
         <>
             <Box
@@ -20,7 +24,18 @@ export default function PrinterStatusControl({ status, temperature }) {
                 }}
             >
                 <Typography>Printer Status: {status} </Typography>
-                <PrinterStatusTemperatureDisplay temperature={temperature} />
+                <PrinterStatusTemperatureDisplay
+                    displayName={"Bed Temperature"}
+                    temperature={bedTemperature}
+                    min={0}
+                    max={100}
+                />
+                <PrinterStatusTemperatureDisplay
+                    displayName={"Hot-End Temperature"}
+                    temperature={hotEndTemperature}
+                    min={0}
+                    max={400}
+                />
             </Box>
             <ButtonGroup variant="contained">
                 <IconButton>
