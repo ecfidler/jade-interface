@@ -32,6 +32,63 @@ export function attemptMultipleConnections(urls) {
     });
 }
 
+export function getFilesList(url) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await axios.get(buildURL(url, "files")).then((res) => {
+                resolve(res);
+            });
+        } catch {
+            reject(false);
+        }
+    });
+}
+
+// https://stackoverflow.com/questions/72681390/how-to-upload-a-file-from-react-front-end-to-fastapi
+export function putFile(url, file) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const fileFormData = new FormData();
+            fileFormData.append("file", file);
+            const headers = { "Content-Type": file.type };
+
+            await axios
+                .post(buildURL(url, `file`), fileFormData, headers)
+                .then((res) => {
+                    resolve(res);
+                })
+                .err((e) => {
+                    reject(e);
+                });
+        } catch {
+            reject(false);
+        }
+    });
+}
+
+// export function getFile(url, fileName) {}
+
+// export function patchFile(url, fileName, newFileName) {}
+
+// export function deleteFile(url, fileName) {}
+
+export function getPrinterData(url) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await axios
+                .get(buildURL(url, "printerStatus"))
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        } catch (e) {
+            reject(false);
+        }
+    });
+}
+
 function parsePingResponse(res) {
     if (res.data.message === passphrase) {
         return urlFromResponse(res.config.url);

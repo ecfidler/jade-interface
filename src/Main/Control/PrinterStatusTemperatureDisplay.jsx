@@ -8,16 +8,25 @@ export default function PrinterStatusTemperatureDisplay({
     min,
     max,
 }) {
-    // what range to I want here?
     const maxTemp = max;
     const minTemp = min;
-    const redVal = (255 / (maxTemp - minTemp)) * (temperature - minTemp);
-    const blueVal = (255 / (maxTemp - minTemp)) * (maxTemp - temperature);
+    const [red, setRed] = React.useState(
+        (255 / (maxTemp - minTemp)) * (temperature - minTemp)
+    );
+    const [blue, setBlue] = React.useState(
+        (255 / (maxTemp - minTemp)) * (maxTemp - temperature)
+    );
+
+    React.useEffect(() => {
+        setRed((255 / (maxTemp - minTemp)) * (temperature - minTemp));
+        setBlue((255 / (maxTemp - minTemp)) * (maxTemp - temperature));
+    }, [temperature, minTemp, maxTemp]);
+
     return (
         <Typography>
             {displayName}:{" "}
-            <span sx={{ backgroundColor: `rgb(${redVal}, 0, ${blueVal})` }}>
-                {temperature} C
+            <span style={{ color: `rgb(${red}, 0, ${blue})` }}>
+                {temperature} °C
             </span>{" "}
         </Typography>
     );

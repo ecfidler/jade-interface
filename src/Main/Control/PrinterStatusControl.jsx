@@ -3,7 +3,6 @@ import React from "react";
 import { Box, Typography, IconButton, ButtonGroup } from "@mui/material";
 
 import { PlayArrow } from "@mui/icons-material";
-import { Pause } from "@mui/icons-material";
 import { Stop } from "@mui/icons-material";
 import PrinterStatusTemperatureDisplay from "./PrinterStatusTemperatureDisplay";
 
@@ -41,10 +40,6 @@ export default function PrinterStatusControl({
                 <IconButton>
                     {" "}
                     <PlayArrow />{" "}
-                </IconButton>
-                <IconButton>
-                    {" "}
-                    <Pause />{" "}
                 </IconButton>
                 <IconButton>
                     {" "}
