@@ -12,11 +12,23 @@ import {
 import PublishIcon from "@mui/icons-material/Publish";
 
 import FilesListItem from "./FilesListItem";
-
-// import ConnectionContext from "../../api/connectionContext";
+import LoggerContext from "../../api/loggerContext";
 
 export default function FileManagerSection({ files, updateActiveFile }) {
-    // const connection = React.useContext(ConnectionContext);
+    const logger = React.useContext(LoggerContext);
+
+    const setActiveFileNameAndLog = React.useCallback(
+        (name) => {
+            logger.add({
+                message: `Updating Active File: ${name}`,
+                urgency: undefined,
+                timestamp: Date.now(),
+            });
+
+            updateActiveFile(name);
+        },
+        [logger, updateActiveFile]
+    );
 
     return (
         <Box
@@ -52,7 +64,7 @@ export default function FileManagerSection({ files, updateActiveFile }) {
                             <FilesListItem
                                 key={i}
                                 file={file}
-                                loadFile={updateActiveFile}
+                                loadFile={setActiveFileNameAndLog}
                             />
                         );
                     })

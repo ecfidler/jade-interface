@@ -10,37 +10,15 @@ import LogContext from "../../api/logContext";
 // https://stackoverflow.com/a/52266212
 
 export default function LoggingSection() {
-    const logger = React.useContext(LogContext);
+    const log = React.useContext(LogContext);
+    // const logger = React.useContext(LoggerContext);
 
     const logEndRef = React.createRef();
 
-    const scrollToBottom = () => {
+    React.useEffect(() => {
+        // console.log("new log added");
         logEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
-
-    React.useEffect(() => {
-        console.log("new log added");
-        scrollToBottom();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [logger.log]);
-
-    React.useEffect(() => {
-        for (let i = 0; i < 12; i++) {
-            logger.add({
-                message: `logged ${i}`,
-                urgency: "warning",
-                timestamp: Date.now(),
-            });
-        }
-        logger.add({
-            message: `lastTest`,
-            urgency: "error",
-            timestamp: Date.now(),
-        });
-        scrollToBottom();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [log, logEndRef]);
 
     return (
         <Box
@@ -61,8 +39,8 @@ export default function LoggingSection() {
                 }}
             >
                 <>
-                    {logger.log ? (
-                        logger.log.map((item, i) => {
+                    {log ? (
+                        log.map((item, i) => {
                             return <LogItem key={i} item={item} />;
                         })
                     ) : (

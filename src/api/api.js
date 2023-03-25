@@ -32,16 +32,8 @@ export function attemptMultipleConnections(urls) {
     });
 }
 
-export function getFilesList(url) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await axios.get(buildURL(url, "files")).then((res) => {
-                resolve(res);
-            });
-        } catch {
-            reject(false);
-        }
-    });
+export async function getFilesList(url) {
+    return axios.get(buildURL(url, "files"));
 }
 
 // https://stackoverflow.com/questions/72681390/how-to-upload-a-file-from-react-front-end-to-fastapi
@@ -72,21 +64,12 @@ export function putFile(url, file) {
 
 // export function deleteFile(url, fileName) {}
 
-export function getPrinterData(url) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await axios
-                .get(buildURL(url, "printerStatus"))
-                .then((res) => {
-                    resolve(res);
-                })
-                .catch((e) => {
-                    reject(e);
-                });
-        } catch (e) {
-            reject(false);
-        }
-    });
+export async function getPrinterStatus(url) {
+    try {
+        return axios.get(buildURL(url, "printerStatus"));
+    } catch {
+        return false;
+    }
 }
 
 function parsePingResponse(res) {

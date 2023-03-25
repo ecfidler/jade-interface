@@ -7,28 +7,32 @@ import Navbar from "../Navbar/Navbar";
 
 import ConnectionContext from "../api/connectionContext";
 import LogContext from "../api/logContext";
+import LoggerContext from "../api/loggerContext";
+
+const initialLog = [
+    {
+        message: "initial",
+        urgency: "error",
+        timestamp: Date.now(),
+    },
+];
 
 export default function Layout() {
-    const initialLog = [
-        {
-            message: "initial",
-            urgency: "error",
-            timestamp: Date.now(),
-        },
-    ]; // save or get this from localstorage!
+    // save or get this from localstorage!
 
-    const [apiURL, setApiURL] = React.useState("");
+    const [apiURL, setApiURL] = React.useState(undefined);
 
     const [logList, setLogList] = React.useState(initialLog);
 
-    const initialState = {
-        log: logList,
-        add: (item) => {
-            // console.log(logList.concat([item]));
-            setLogList((oldList) => [...oldList, item]);
-        },
-        clear: () => setLogList([]),
-    };
+    const add = React.useCallback((item) => {
+        setLogList((oldList) => [...oldList, item]);
+    }, []);
+
+    const clear = React.useCallback(() => {
+        setLogList([]);
+    }, []);
+
+    const loggers = React.useMemo(() => ({ add, clear }), [add, clear]);
 
     return (
         <Box
@@ -41,13 +45,15 @@ export default function Layout() {
                 borderRadius: "5px",
             }}
         >
-            <LogContext.Provider value={initialState}>
-                <ConnectionContext.Provider
-                    value={{ url: apiURL, updateUrl: setApiURL }}
-                >
-                    <Navbar />
-                    <Outlet />
-                </ConnectionContext.Provider>
+            <LogContext.Provider value={logList}>
+                <LoggerContext.Provider value={loggers}>
+                    <ConnectionContext.Provider
+                        value={{ url: apiURL, updateUrl: setApiURL }}
+                    >
+                        <Navbar />
+                        <Outlet />
+                    </ConnectionContext.Provider>
+                </LoggerContext.Provider>
             </LogContext.Provider>
         </Box>
     );

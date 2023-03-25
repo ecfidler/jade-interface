@@ -24,6 +24,7 @@ export default function FilesListItem({ file, loadFile }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
+    // TODO convert arrow funcs to `React.useCallback`s
     const handleOpenMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
     };

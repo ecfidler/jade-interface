@@ -9,18 +9,18 @@ import { useParams } from "react-router-dom";
 import ConnectionContext from "../api/connectionContext";
 import LoggingSection from "./Logging/LoggingSection";
 import ViewerSection from "./Viewer/ViewerSection";
-import FileManagerLoader from "./FileManager/FileManagerLoader";
-import ControlSection from "./Control/ControlSection";
+import FileManagerWrapper from "./FileManager/FileManagerWrapper";
+import ControlSectionWrapper from "./Control/ControlSectionWrapper";
 
 export default function MainPage() {
     const { connectionURL } = useParams();
     const connection = React.useContext(ConnectionContext);
 
-    const [activeFileName, setActiveFileName] = React.useState("");
+    const [activeFileName, setActiveFileName] = React.useState(undefined);
 
     React.useEffect(() => {
         connection.updateUrl(connectionURL);
-    });
+    }, [connection, connectionURL]);
 
     return (
         <>
@@ -37,10 +37,12 @@ export default function MainPage() {
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "30%" }}>
-                        <ControlSection activeFile={activeFileName} />
+                        <ControlSectionWrapper
+                            activeFileName={activeFileName}
+                        />
                     </Paper>
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
-                        <FileManagerLoader
+                        <FileManagerWrapper
                             updateActiveFileName={setActiveFileName}
                         />
                     </Paper>
