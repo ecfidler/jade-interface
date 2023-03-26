@@ -16,26 +16,50 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-
-// import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-// import LaunchIcon from "@mui/icons-material/Launch";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 
-export default function FilesListItem({ file, loadFile }) {
+import { deleteFile } from "../../api/api";
+
+import LoggerContext from "../../api/loggerContext";
+import ConnectionContext from "../../api/connectionContext";
+
+export default function FilesListItem({ file, loadFile, refreshFileList }) {
+    const logger = React.useContext(LoggerContext);
+    const connection = React.useContext(ConnectionContext);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
-    // TODO convert arrow funcs to `React.useCallback`s
-    const handleOpenMenuClick = (event) => {
+    const handleOpenMenuClick = React.useCallback((event) => {
         setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    }, []);
 
-    const handleLoadFileButton = () => {
+    const handleClose = React.useCallback(() => {
+        setAnchorEl(null);
+    }, []);
+
+    const handleLoadFileButton = React.useCallback(() => {
         loadFile(file.name);
-    };
+    }, [loadFile, file.name]);
+
+    const handleDeleteFileButton = React.useCallback(() => {
+        deleteFile(connection.url, file.name)
+            .then((res) => {
+                logger.add({
+                    message: `File Deleted: ${file.name}`,
+                    urgency: "warning",
+                    timestamp: Date.now(),
+                });
+                refreshFileList(false);
+            })
+            .catch((e) => {
+                logger.add({
+                    message: `Deletion of ${file.name} failed.\n${e}`,
+                    urgency: "error",
+                    timestamp: Date.now(),
+                });
+            });
+    }, [connection.url, file.name, refreshFileList, logger]);
 
     return (
         <ListItem disableGutters key={file.name}>
@@ -47,7 +71,7 @@ export default function FilesListItem({ file, loadFile }) {
             <Tooltip arrow title={file.name}>
                 <ListItemText
                     primaryTypographyProps={{
-                        noWrap: "true",
+                        noWrap: true,
                         maxWidth: "180px",
                     }}
                 >
@@ -55,10 +79,11 @@ export default function FilesListItem({ file, loadFile }) {
                 </ListItemText>
             </Tooltip>
             <ListItemSecondaryAction>
-                <IconButton onClick={handleLoadFileButton}>
-                    <FileOpenIcon />
-                </IconButton>
-
+                <Tooltip arrow title={"Load"}>
+                    <IconButton onClick={handleLoadFileButton}>
+                        <FileOpenIcon />
+                    </IconButton>
+                </Tooltip>
                 <IconButton onClick={handleOpenMenuClick}>
                     <MoreHorizIcon />
                 </IconButton>
@@ -78,7 +103,7 @@ export default function FilesListItem({ file, loadFile }) {
                     <MenuItem>
                         <EditIcon /> Edit File Name
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem onClick={handleDeleteFileButton}>
                         <DeleteIcon /> Delete File
                     </MenuItem>
                 </Menu>

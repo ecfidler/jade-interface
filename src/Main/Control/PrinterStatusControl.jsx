@@ -48,7 +48,11 @@ export default function PrinterStatusControl({
                     sx={{
                         width: "48%",
                         borderRadius: "4px",
-                        backgroundColor: "#68B490",
+                        backgroundColor: "#00A86B",
+                        "&:hover": {
+                            backgroundColor: "#68B490",
+                            color: "rgba(0,0,0,.8)",
+                        },
                     }}
                     variant="contained"
                 >
@@ -59,7 +63,11 @@ export default function PrinterStatusControl({
                     sx={{
                         width: "48%",
                         borderRadius: "4px",
-                        backgroundColor: "#68B490",
+                        backgroundColor: "#00A86B",
+                        "&:hover": {
+                            backgroundColor: "#68B490",
+                            color: "rgba(0,0,0,.8)",
+                        },
                     }}
                     variant="contained"
                 >

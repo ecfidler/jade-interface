@@ -1,20 +1,16 @@
 import * as React from "react";
 
-import {
-    Box,
-    Typography,
-    Divider,
-    IconButton,
-    List,
-    Skeleton,
-} from "@mui/material";
-
-import PublishIcon from "@mui/icons-material/Publish";
+import { Box, Typography, Divider, List, Skeleton } from "@mui/material";
 
 import FilesListItem from "./FilesListItem";
 import LoggerContext from "../../api/loggerContext";
+import UploadFileButton from "./UploadFileButton";
 
-export default function FileManagerSection({ files, updateActiveFile }) {
+export default function FileManagerSection({
+    files,
+    updateActiveFile,
+    refreshFileList,
+}) {
     const logger = React.useContext(LoggerContext);
 
     const setActiveFileNameAndLog = React.useCallback(
@@ -52,9 +48,7 @@ export default function FileManagerSection({ files, updateActiveFile }) {
                 <Typography sx={{ fontWeight: "500", fontSize: "1.25rem" }}>
                     Files
                 </Typography>
-                <IconButton>
-                    <PublishIcon />
-                </IconButton>
+                <UploadFileButton refreshFileList={refreshFileList} />
             </Box>
             <Divider />
             <List>
@@ -65,6 +59,7 @@ export default function FileManagerSection({ files, updateActiveFile }) {
                                 key={i}
                                 file={file}
                                 loadFile={setActiveFileNameAndLog}
+                                refreshFileList={refreshFileList}
                             />
                         );
                     })

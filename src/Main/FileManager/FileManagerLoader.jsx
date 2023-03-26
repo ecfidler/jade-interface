@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import FileManagerSection from "./FileManagerSection";
 
 import { getFilesList } from "../../api/api";
@@ -18,29 +18,37 @@ export default function FileManagerLoader({
         { name: "3dBenchy.stl" },
     ]);
 
-    React.useEffect(() => {
-        (async () => {
-            try {
-                const listPromise = await getFilesList(connectionURL);
-                setFiles(listPromise.data);
-                logger.add({
-                    message: `Loaded files! 🕶`,
-                    timestamp: Date.now(),
-                });
-            } catch {
-                logger.add({
-                    message: `Error Loading files`,
-                    urgency: "error",
-                    timestamp: Date.now(),
-                });
-            }
-        })();
-    }, [connectionURL, logger]);
+    const refreshFileList = useCallback(
+        (logRefresh = true) => {
+            (async () => {
+                try {
+                    const listPromise = await getFilesList(connectionURL);
+                    setFiles(listPromise.data);
+                    if (logRefresh) {
+                        logger.add({
+                            message: `Loaded files! 🕶`,
+                            timestamp: Date.now(),
+                        });
+                    }
+                } catch {
+                    logger.add({
+                        message: `Error Loading files`,
+                        urgency: "error",
+                        timestamp: Date.now(),
+                    });
+                }
+            })();
+        },
+        [connectionURL, logger]
+    );
+
+    React.useEffect(refreshFileList, [refreshFileList]);
 
     return (
         <FileManagerSection
             files={files}
             updateActiveFile={updateActiveFileName}
+            refreshFileList={refreshFileList}
         />
     );
 }

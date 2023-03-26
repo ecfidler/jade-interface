@@ -45,24 +45,56 @@ export function putFile(url, file) {
             const headers = { "Content-Type": file.type };
 
             await axios
-                .post(buildURL(url, `file`), fileFormData, headers)
+                .put(buildURL(url, `file`), fileFormData, headers)
                 .then((res) => {
                     resolve(res);
                 })
-                .err((e) => {
+                .catch((e) => {
                     reject(e);
                 });
-        } catch {
-            reject(false);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+export function deleteFile(url, fileName) {
+    return new Promise((resolve, reject) => {
+        try {
+            axios
+                .delete(buildURL(url, `file/${fileName}`))
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+export function patchFile(url, fileName, newFileName) {
+    return new Promise((resolve, reject) => {
+        try {
+            axios
+                .patch(buildURL(url, `file/${fileName}`), {
+                    new_name: newFileName,
+                })
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        } catch (e) {
+            reject(e);
         }
     });
 }
 
 // export function getFile(url, fileName) {}
-
-// export function patchFile(url, fileName, newFileName) {}
-
-// export function deleteFile(url, fileName) {}
 
 export async function getPrinterStatus(url) {
     try {
