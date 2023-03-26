@@ -9,6 +9,7 @@ import {
     ListItemText,
     Menu,
     MenuItem,
+    Tooltip,
 } from "@mui/material";
 
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -43,7 +44,16 @@ export default function FilesListItem({ file, loadFile }) {
                     <InsertDriveFileIcon />
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText>{file.name}</ListItemText>
+            <Tooltip arrow title={file.name}>
+                <ListItemText
+                    primaryTypographyProps={{
+                        noWrap: "true",
+                        maxWidth: "180px",
+                    }}
+                >
+                    {file.name}
+                </ListItemText>
+            </Tooltip>
             <ListItemSecondaryAction>
                 <IconButton onClick={handleLoadFileButton}>
                     <FileOpenIcon />

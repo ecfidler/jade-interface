@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Typography, IconButton, ButtonGroup } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 
 import { PlayArrow } from "@mui/icons-material";
 import { Stop } from "@mui/icons-material";
@@ -36,16 +36,37 @@ export default function PrinterStatusControl({
                     max={400}
                 />
             </Box>
-            <ButtonGroup variant="contained">
-                <IconButton>
+            <Box
+                sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                }}
+            >
+                <IconButton
+                    sx={{
+                        width: "48%",
+                        borderRadius: "4px",
+                        backgroundColor: "#68B490",
+                    }}
+                    variant="contained"
+                >
                     {" "}
                     <PlayArrow />{" "}
                 </IconButton>
-                <IconButton>
+                <IconButton
+                    sx={{
+                        width: "48%",
+                        borderRadius: "4px",
+                        backgroundColor: "#68B490",
+                    }}
+                    variant="contained"
+                >
                     {" "}
                     <Stop />{" "}
                 </IconButton>
-            </ButtonGroup>
+            </Box>
         </>
     );
 }

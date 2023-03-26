@@ -44,30 +44,6 @@ export default function PrinterStatusLoader({ connectionURL }) {
         }, 1000);
     }, [connectionURL]);
 
-    // React.useEffect(() => {
-    //     async function getData(interval) {
-    //         await getPrinterStatus(connectionURL)
-    //             .then((res) => {
-    //                 setPrinterDataStatus((old) => res.data.status ?? old);
-    //                 setPrinterDataBedTemp(
-    //                     (old) => res.data.bed_temperature ?? old
-    //                 );
-    //                 setPrinterDataHotEndTemp(
-    //                     (old) => res.data.hot_end_temperature ?? old
-    //                 );
-    //             })
-    //             .catch((e) => {
-    //                 // Log here?
-    //                 clearInterval(interval);
-    //                 return false;
-    //             });
-    //     }
-
-    //     const requestLoop = setInterval(() => {
-    //         getData(requestLoop);
-    //     }, 1000);
-    // }, [connectionURL]);
-
     return (
         <PrinterStatusControl
             status={printerDataStatus}

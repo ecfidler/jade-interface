@@ -34,6 +34,7 @@ export default function MainPage() {
                         display: "flex",
                         flexDirection: "column",
                         gap: "15px",
+                        // maxWidth: "30%",
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "30%" }}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 
 import PrinterStatusLoader from "./PrinterStatusLoader";
 
@@ -17,9 +17,21 @@ export default function ControlSection({ activeFileName, connectionURL }) {
                     height: "90%",
                 }}
             >
-                <Typography sx={{ fontWeight: "500", fontSize: "1.25rem" }}>
-                    {activeFileName ? `File: ${activeFileName}` : "Load a file"}
-                </Typography>
+                <Tooltip arrow title={activeFileName}>
+                    <Typography
+                        noWrap
+                        sx={{
+                            maxWidth: "312px",
+                            height: "2.5rem",
+                            fontWeight: "500",
+                            fontSize: "1.25rem",
+                        }}
+                    >
+                        {activeFileName
+                            ? `File: ${activeFileName}`
+                            : "Load a file"}
+                    </Typography>
+                </Tooltip>
                 <PrinterStatusLoader
                     connectionURL={connectionURL}
                     sx={{ height: "75%" }}
