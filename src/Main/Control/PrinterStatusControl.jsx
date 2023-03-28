@@ -47,7 +47,7 @@ export default function PrinterStatusControl({
                 <IconButton
                     sx={{
                         width: "48%",
-                        borderRadius: "4px",
+                        borderRadius: "100px",
                         backgroundColor: "#00A86B",
                         "&:hover": {
                             backgroundColor: "#68B490",
@@ -62,7 +62,7 @@ export default function PrinterStatusControl({
                 <IconButton
                     sx={{
                         width: "48%",
-                        borderRadius: "4px",
+                        borderRadius: "100px",
                         backgroundColor: "#00A86B",
                         "&:hover": {
                             backgroundColor: "#68B490",
