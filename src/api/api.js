@@ -79,9 +79,9 @@ export function patchFile(url, fileName, newFileName) {
     return new Promise((resolve, reject) => {
         try {
             axios
-                .patch(buildURL(url, `file/${fileName}`), {
-                    new_name: newFileName,
-                })
+                .patch(
+                    buildURL(url, `file/${fileName}?new_name=${newFileName}`)
+                )
                 .then((res) => {
                     resolve(res);
                 })
