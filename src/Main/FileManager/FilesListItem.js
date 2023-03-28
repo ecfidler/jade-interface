@@ -14,7 +14,6 @@ import {
 
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 
@@ -22,6 +21,7 @@ import { deleteFile } from "../../api/api";
 
 import LoggerContext from "../../api/loggerContext";
 import ConnectionContext from "../../api/connectionContext";
+import EditFileNameButton from "./EditFileNameButton";
 
 export default function FilesListItem({ file, loadFile, refreshFileList }) {
     const logger = React.useContext(LoggerContext);
@@ -100,9 +100,10 @@ export default function FilesListItem({ file, loadFile, refreshFileList }) {
                         horizontal: "right",
                     }}
                 >
-                    <MenuItem>
-                        <EditIcon /> Edit File Name
-                    </MenuItem>
+                    <EditFileNameButton
+                        name={file.name}
+                        refreshFileList={refreshFileList}
+                    />
                     <MenuItem onClick={handleDeleteFileButton}>
                         <DeleteIcon /> Delete File
                     </MenuItem>
