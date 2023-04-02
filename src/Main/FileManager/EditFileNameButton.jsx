@@ -18,7 +18,11 @@ import { patchFile } from "../../api/api";
 import LoggerContext from "../../api/loggerContext";
 import ConnectionContext from "../../api/connectionContext";
 
-export default function EditFileNameButton({ name, refreshFileList }) {
+export default function EditFileNameButton({
+    name,
+    refreshFileList,
+    handleClose,
+}) {
     const logger = React.useContext(LoggerContext);
     const connection = React.useContext(ConnectionContext);
 
@@ -34,13 +38,14 @@ export default function EditFileNameButton({ name, refreshFileList }) {
 
     const handleCloseButtonClick = React.useCallback(() => {
         setDialogOpen(false);
-    }, []);
+        handleClose();
+    }, [handleClose]);
 
     const handleRenameFileButtonClick = React.useCallback(() => {
         setDialogLoading(true);
 
         patchFile(connection.url, name, newName)
-            .then((res) => {
+            .then(() => {
                 logger.add({
                     message: `Renamed file '${name}' to '${newName}'`,
                     timestamp: Date.now(),
@@ -57,7 +62,8 @@ export default function EditFileNameButton({ name, refreshFileList }) {
 
         setDialogLoading(false);
         setDialogOpen(false);
-    }, [connection.url, logger, name, newName, refreshFileList]);
+        handleClose();
+    }, [connection.url, handleClose, logger, name, newName, refreshFileList]);
 
     return (
         <>

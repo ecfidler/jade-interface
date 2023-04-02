@@ -10,6 +10,7 @@ export default function FileManagerSection({
     files,
     updateActiveFile,
     refreshFileList,
+    viewFile,
 }) {
     const logger = React.useContext(LoggerContext);
 
@@ -60,6 +61,7 @@ export default function FileManagerSection({
                                 file={file}
                                 loadFile={setActiveFileNameAndLog}
                                 refreshFileList={refreshFileList}
+                                viewFile={viewFile}
                             />
                         );
                     })

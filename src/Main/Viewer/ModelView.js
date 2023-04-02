@@ -1,5 +1,7 @@
 import * as React from "react";
 
+// import * as stl from "stl";
+
 // import { Box } from "@mui/material";
 
 import { Canvas, useLoader } from "@react-three/fiber";
@@ -9,12 +11,30 @@ import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 import ModelLoaderProgress from "./ModelLoaderProgress";
 
-export default function ModelView(params) {
-    const [model, setModel] = React.useState(
-        `${process.env.PUBLIC_URL}\\resources\\models\\${params.modelName}`
-    );
+export default function ModelView({ modelURL }) {
+    // const [object, setObject] = React.useState(undefined);
 
-    const object = useLoader(STLLoader, model);
+    // React.useEffect(() => {
+    //     if (!model) {
+    //         return;
+    //     }
+    //     // const stlObject = stl.toObject(model);
+    //     const loader = new STLLoader();
+    //     const dt = loader.parse(model);
+    //     setObject(dt);
+    // }, [model]);
+
+    // React.useEffect(() => {
+    //     if (!model) {
+    //         return;
+    //     }
+    //     const loader = new STLLoader();
+    //     setObject(loader.load(model));
+    // }, [model, setObject]);
+
+    // const object = useLoader(STLLoader, model);
+
+    const object = useLoader(STLLoader, modelURL);
 
     return (
         <Canvas>

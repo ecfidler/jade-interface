@@ -18,6 +18,8 @@ export default function MainPage() {
 
     const [activeFileName, setActiveFileName] = React.useState(undefined);
 
+    const [viewFileName, setViewFileName] = React.useState(undefined);
+
     React.useEffect(() => {
         connection.updateUrl(connectionURL);
     }, [connection, connectionURL]);
@@ -45,6 +47,7 @@ export default function MainPage() {
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
                         <FileManagerWrapper
                             updateActiveFileName={setActiveFileName}
+                            viewFile={setViewFileName}
                         />
                     </Paper>
                 </Box>
@@ -57,7 +60,7 @@ export default function MainPage() {
                     }}
                 >
                     <Paper elevation={4} sx={{ flexBasis: "70%" }}>
-                        <ViewerSection />
+                        <ViewerSection fileName={viewFileName} />
                     </Paper>
 
                     <Paper

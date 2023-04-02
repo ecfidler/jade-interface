@@ -8,6 +8,7 @@ import LoggerContext from "../../api/loggerContext";
 export default function FileManagerLoader({
     updateActiveFileName,
     connectionURL,
+    viewFile,
 }) {
     const logger = React.useContext(LoggerContext);
 
@@ -49,6 +50,7 @@ export default function FileManagerLoader({
             files={files}
             updateActiveFile={updateActiveFileName}
             refreshFileList={refreshFileList}
+            viewFile={viewFile}
         />
     );
 }

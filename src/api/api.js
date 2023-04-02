@@ -94,7 +94,26 @@ export function patchFile(url, fileName, newFileName) {
     });
 }
 
-// export function getFile(url, fileName) {}
+// export function getFile(url, fileName) {
+//     return new Promise((resolve, reject) => {
+//         try {
+//             axios
+//                 .get(buildURL(url, `file/${fileName}`))
+//                 .then((res) => {
+//                     resolve(res);
+//                 })
+//                 .catch((e) => {
+//                     reject(e);
+//                 });
+//         } catch (e) {
+//             reject(e);
+//         }
+//     });
+// }
+
+export function getFile(url, fileName) {
+    return axios.get(buildURL(url, `file/${fileName}`));
+}
 
 export async function getPrinterStatus(url) {
     try {
@@ -116,6 +135,6 @@ function urlFromResponse(url) {
     return url.replace("http://", "").replace(":5000/ping", "");
 }
 
-function buildURL(base, endpoint) {
+export function buildURL(base, endpoint) {
     return `http://${base}:5000/${endpoint}`;
 }

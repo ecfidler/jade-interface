@@ -9,7 +9,7 @@ import ModelTab from "./ModelTab";
 // import ConnectionContext from "../../api/connectionContext";
 // import LogContext from "../../api/logContext";
 
-export default function ViewerSection() {
+export default function ViewerSection({ fileName }) {
     const [tabValue, setTabValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -24,8 +24,8 @@ export default function ViewerSection() {
                     onChange={handleChange}
                     aria-label="basic tabs example"
                 >
-                    <Tab label="Video Feed" {...a11yProps(0)} />
-                    <Tab label="3d Model View" {...a11yProps(1)} />
+                    <Tab label="3d Model View" {...a11yProps(0)} />
+                    <Tab label="Video Feed" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel
@@ -33,14 +33,14 @@ export default function ViewerSection() {
                 index={0}
                 style={{ width: "95%", height: "80%" }}
             >
-                <VideoFeedTab />
+                <ModelTab fileName={fileName} />
             </TabPanel>
             <TabPanel
                 value={tabValue}
                 index={1}
                 style={{ width: "95%", height: "80%" }}
             >
-                <ModelTab />
+                <VideoFeedTab />
             </TabPanel>
         </Box>
     );

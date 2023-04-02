@@ -16,6 +16,7 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
+import ViewInArIcon from "@mui/icons-material/ViewInAr";
 
 import { deleteFile } from "../../api/api";
 
@@ -23,7 +24,12 @@ import LoggerContext from "../../api/loggerContext";
 import ConnectionContext from "../../api/connectionContext";
 import EditFileNameButton from "./EditFileNameButton";
 
-export default function FilesListItem({ file, loadFile, refreshFileList }) {
+export default function FilesListItem({
+    file,
+    loadFile,
+    refreshFileList,
+    viewFile,
+}) {
     const logger = React.useContext(LoggerContext);
     const connection = React.useContext(ConnectionContext);
 
@@ -59,7 +65,13 @@ export default function FilesListItem({ file, loadFile, refreshFileList }) {
                     timestamp: Date.now(),
                 });
             });
-    }, [connection.url, file.name, refreshFileList, logger]);
+        handleClose();
+    }, [connection.url, file.name, handleClose, logger, refreshFileList]);
+
+    const handleViewFileButton = React.useCallback(() => {
+        viewFile(file.name);
+        handleClose();
+    }, [file.name, handleClose, viewFile]);
 
     return (
         <ListItem disableGutters key={file.name}>
@@ -103,9 +115,13 @@ export default function FilesListItem({ file, loadFile, refreshFileList }) {
                     <EditFileNameButton
                         name={file.name}
                         refreshFileList={refreshFileList}
+                        handleClose={handleClose}
                     />
                     <MenuItem onClick={handleDeleteFileButton}>
                         <DeleteIcon /> Delete File
+                    </MenuItem>
+                    <MenuItem onClick={handleViewFileButton}>
+                        <ViewInArIcon /> View Model
                     </MenuItem>
                 </Menu>
             </ListItemSecondaryAction>

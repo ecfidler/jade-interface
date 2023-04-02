@@ -1,13 +1,25 @@
 import * as React from "react";
 
+// import * as fs from "fs";
+
 import { Box, CircularProgress } from "@mui/material";
 
 import ModelView from "./ModelView";
 
-export default function ModelTab() {
-    const [model, setModel] = React.useState("3DBenchy.stl");
+import ConnectionContext from "../../api/connectionContext";
+// import LoggerContext from "../../api/loggerContext";
 
-    return model ? (
+import { buildURL } from "../../api/api";
+
+export default function ModelTab({ fileName }) {
+    const connection = React.useContext(ConnectionContext);
+    // const logger = React.useContext(LoggerContext);
+
+    const modelURL = React.useMemo(() => {
+        return buildURL(connection.url, `file/${fileName}`);
+    }, [connection.url, fileName]);
+
+    return fileName ? (
         <Box
             sx={{
                 width: "100%",
@@ -18,7 +30,7 @@ export default function ModelTab() {
             }}
         >
             <React.Suspense fallback={<CircularProgress />}>
-                <ModelView modelName={model} />
+                <ModelView modelURL={modelURL} />
             </React.Suspense>
         </Box>
     ) : (

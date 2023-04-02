@@ -4,7 +4,7 @@ import FileManagerLoader from "./FileManagerLoader";
 
 import ConnectionContext from "../../api/connectionContext";
 
-export default function FileManagerWrapper({ updateActiveFileName }) {
+export default function FileManagerWrapper({ updateActiveFileName, viewFile }) {
     const connection = React.useContext(ConnectionContext);
 
     if (connection.url == null) {
@@ -16,6 +16,7 @@ export default function FileManagerWrapper({ updateActiveFileName }) {
         <FileManagerLoader
             updateActiveFileName={updateActiveFileName}
             connectionURL={connection.url}
+            viewFile={viewFile}
         />
     );
 }
